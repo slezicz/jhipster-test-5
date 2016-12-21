@@ -1,0 +1,19 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "content",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sender",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20161221153357",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "question",
+    "pagination": "no"
+}
