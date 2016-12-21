@@ -97,6 +97,7 @@
                             return {
                                 content: null,
                                 sender: null,
+                                date: null,
                                 id: null
                             };
                         }

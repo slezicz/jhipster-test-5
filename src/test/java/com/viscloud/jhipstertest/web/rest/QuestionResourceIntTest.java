@@ -21,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,6 +44,9 @@ public class QuestionResourceIntTest {
 
     private static final String DEFAULT_SENDER = "AAAAAAAAAA";
     private static final String UPDATED_SENDER = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
     @Inject
     private QuestionRepository questionRepository;
@@ -78,7 +83,8 @@ public class QuestionResourceIntTest {
     public static Question createEntity(EntityManager em) {
         Question question = new Question()
                 .content(DEFAULT_CONTENT)
-                .sender(DEFAULT_SENDER);
+                .sender(DEFAULT_SENDER)
+                .date(DEFAULT_DATE);
         return question;
     }
 
@@ -105,6 +111,7 @@ public class QuestionResourceIntTest {
         Question testQuestion = questionList.get(questionList.size() - 1);
         assertThat(testQuestion.getContent()).isEqualTo(DEFAULT_CONTENT);
         assertThat(testQuestion.getSender()).isEqualTo(DEFAULT_SENDER);
+        assertThat(testQuestion.getDate()).isEqualTo(DEFAULT_DATE);
     }
 
     @Test
@@ -139,7 +146,8 @@ public class QuestionResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(question.getId().intValue())))
             .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
-            .andExpect(jsonPath("$.[*].sender").value(hasItem(DEFAULT_SENDER.toString())));
+            .andExpect(jsonPath("$.[*].sender").value(hasItem(DEFAULT_SENDER.toString())))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
     }
 
     @Test
@@ -154,7 +162,8 @@ public class QuestionResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(question.getId().intValue()))
             .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
-            .andExpect(jsonPath("$.sender").value(DEFAULT_SENDER.toString()));
+            .andExpect(jsonPath("$.sender").value(DEFAULT_SENDER.toString()))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()));
     }
 
     @Test
@@ -176,7 +185,8 @@ public class QuestionResourceIntTest {
         Question updatedQuestion = questionRepository.findOne(question.getId());
         updatedQuestion
                 .content(UPDATED_CONTENT)
-                .sender(UPDATED_SENDER);
+                .sender(UPDATED_SENDER)
+                .date(UPDATED_DATE);
 
         restQuestionMockMvc.perform(put("/api/questions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -189,6 +199,7 @@ public class QuestionResourceIntTest {
         Question testQuestion = questionList.get(questionList.size() - 1);
         assertThat(testQuestion.getContent()).isEqualTo(UPDATED_CONTENT);
         assertThat(testQuestion.getSender()).isEqualTo(UPDATED_SENDER);
+        assertThat(testQuestion.getDate()).isEqualTo(UPDATED_DATE);
     }
 
     @Test

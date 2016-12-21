@@ -9,6 +9,10 @@
         {
             "fieldName": "sender",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate"
         }
     ],
     "changelogDate": "20161221153357",

@@ -3,6 +3,7 @@ package com.viscloud.jhipstertest.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -23,6 +24,9 @@ public class Question implements Serializable {
 
     @Column(name = "sender")
     private String sender;
+
+    @Column(name = "date")
+    private LocalDate date;
 
     public Long getId() {
         return id;
@@ -58,6 +62,19 @@ public class Question implements Serializable {
         this.sender = sender;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public Question date(LocalDate date) {
+        this.date = date;
+        return this;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -84,6 +101,7 @@ public class Question implements Serializable {
             "id=" + id +
             ", content='" + content + "'" +
             ", sender='" + sender + "'" +
+            ", date='" + date + "'" +
             '}';
     }
 }
