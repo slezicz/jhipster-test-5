@@ -28,6 +28,9 @@ public class Question implements Serializable {
     @Column(name = "date")
     private LocalDate date;
 
+    @ManyToOne
+    private User author;
+
     public Long getId() {
         return id;
     }
@@ -73,6 +76,19 @@ public class Question implements Serializable {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public Question author(User user) {
+        this.author = user;
+        return this;
+    }
+
+    public void setAuthor(User user) {
+        this.author = user;
     }
 
     @Override

@@ -5,9 +5,9 @@
         .module('jhipsterApp')
         .controller('QuestionDialogController', QuestionDialogController);
 
-    QuestionDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Question'];
+    QuestionDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Question', 'User'];
 
-    function QuestionDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Question) {
+    function QuestionDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Question, User) {
         var vm = this;
 
         vm.question = entity;
@@ -15,6 +15,7 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
+        vm.users = User.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

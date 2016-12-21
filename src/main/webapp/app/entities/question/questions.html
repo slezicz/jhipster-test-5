@@ -22,6 +22,7 @@
                     <th><span>Content</span></th>
                     <th><span>Sender</span></th>
                     <th><span>Date</span></th>
+                    <th><span>Author</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -31,6 +32,9 @@
                     <td>{{question.content}}</td>
                     <td>{{question.sender}}</td>
                         <td>{{question.date | date:'mediumDate'}}</td>
+                    <td>
+                        {{question.author.login}}
+                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
